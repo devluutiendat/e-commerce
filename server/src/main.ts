@@ -1,8 +1,48 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
+import { AppModule } from './app.module.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.PORT ?? 3000);
+  const app = await NestFactory.create(AppModule, {
+  });
+
+  const configService = app.get(ConfigService);
+
+
+  // Validation
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: { enableImplicitConversion: true },
+    }),
+  );
+
+  // Swagger
+  if (configService.get('NODE_ENV') !== 'production') {
+    const config = new DocumentBuilder()
+      .setTitle('E-Commerce API')
+      .setDescription('NestJS E-Commerce REST API documentation')
+      .setVersion('1.0')
+      .addBearerAuth(
+        { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
+        'access-token',
+      )
+      .addTag('Auth', 'Authentication endpoints')
+      .addTag('Users', 'User management')
+      .addTag('Products', 'Product management')
+      .addTag('Orders', 'Order management')
+      .build();
+    const document = SwaggerModule.createDocument(app, config);
+    SwaggerModule.setup('api/docs', app, document);
+  }
+
+  const port = configService.get('PORT', 3000);
+  await app.listen(port);
+  console.log(`🚀 Application running on: http://localhost:${port}/api/v1`);
+  console.log(`📚 Swagger docs: http://localhost:${port}/api/docs`);
 }
 bootstrap();
