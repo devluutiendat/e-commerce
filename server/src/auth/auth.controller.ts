@@ -15,7 +15,7 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service.js';
 import { RegisterDto, LoginDto, RefreshTokenDto } from './dto/auth.dto.js';
-import { GetUser, Public } from '../common/decoratrs/index.js';
+import { GetUser, Public } from '../common/decorators/index.js';
 
 @ApiTags('Auth')
 @Controller('auth')

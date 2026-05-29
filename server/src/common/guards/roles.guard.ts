@@ -7,7 +7,7 @@ import {
   UnauthorizedException,
   ExecutionContext,
 } from '@nestjs/common';
-import { ROLES_KEY } from '../decoratrs/index.js';
+import { ROLES_KEY } from '../decorators/index.js';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()
