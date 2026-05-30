@@ -20,7 +20,6 @@ CREATE TABLE "Product" (
     "name" TEXT NOT NULL,
     "type" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "slug" INTEGER NOT NULL,
     "price" INTEGER NOT NULL,
     "discountPercent" INTEGER,
     "images" TEXT NOT NULL,

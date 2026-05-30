@@ -2,10 +2,11 @@ import { Global, Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module.js';
 import { PrismaService } from './config/prisma.service.js';
 import { UsersModule } from './users/users.module.js';
+import { ProductsModule } from './products/products.module.js';
 
 @Global()
 @Module({
-  imports: [AuthModule, UsersModule],
+  imports: [AuthModule, UsersModule, ProductsModule],
   controllers: [],
   providers: [PrismaService],
   exports: [PrismaService],

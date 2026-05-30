@@ -38,7 +38,7 @@ export class UsersService {
       select: USER_SELECT,
     });
     if (!user) throw new NotFoundException(`User #${id} not found`);
-    return user;
+    return user;  
   }
 
   async update(id: number, dto: UpdateUserDto, requesterId: number, requesterRole: number) {
