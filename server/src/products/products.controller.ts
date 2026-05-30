@@ -10,6 +10,7 @@ import {
   UseGuards,
   HttpCode,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -17,7 +18,7 @@ import {
   ApiBearerAuth,
 } from '@nestjs/swagger';
 import { ProductsService } from './products.service.js';
-import { CreateProductDto, UpdateProductDto } from './dto/product.dto.js';
+import { CreateProductDto, ProductQueryDto, UpdateProductDto } from './dto/product.dto.js';
 import { Public, Roles } from '../common/decorators/index.js';
 import { RolesGuard } from '../common/guards/index.js';
 
@@ -25,6 +26,13 @@ import { RolesGuard } from '../common/guards/index.js';
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
+
+  @Public()
+  @Get()
+  @ApiOperation({ summary: 'Get all products with search/filter/sort/pagination' })
+  findAll(@Query() query: ProductQueryDto) {
+    return this.productsService.findAll(query);
+  }
 
   @Public()
   @Get(':id')
