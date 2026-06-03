@@ -16,6 +16,7 @@ import {
   ApiTags,
   ApiOperation,
   ApiBearerAuth,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { ProductsService } from './products.service.js';
 import { CreateProductDto, ProductQueryDto, UpdateProductDto } from './dto/product.dto.js';
@@ -27,6 +28,15 @@ import { RolesGuard } from '../common/guards/index.js';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  
+  @Public()
+  @Get('top-selling')
+  @ApiOperation({ summary: 'Get top-selling products (cached)' })
+  @ApiQuery({ name: 'limit', required: false, type: Number })
+  getTopSelling(@Query('limit') limit = 10) {
+    return this.productsService.getTopSelling(+limit);
+  }
+  
   @Public()
   @Get()
   @ApiOperation({ summary: 'Get all products with search/filter/sort/pagination' })

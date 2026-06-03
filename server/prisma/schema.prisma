@@ -37,7 +37,7 @@ model Product {
 model Orders {
   id        Int      @id @default(autoincrement())
   quantity  Int
-  status    Boolean
+  active    Boolean
   createdAt DateTime @default(now())
   productId Int
   userId    Int

@@ -7,7 +7,7 @@ import {
   IsEnum,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional, PartialType } from '@nestjs/swagger';
-import { Type } from 'class-transformer/types/decorators/index.js';
+import { Type } from 'class-transformer';
 
 export class CreateProductDto {
   @ApiProperty({ example: 'iPhone 15 Pro' })
