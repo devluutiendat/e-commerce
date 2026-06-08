@@ -93,7 +93,6 @@ export class ProductsService {
     const topOrders = await this.prisma.orders.groupBy({
       by: ['productId'],
       _sum: { quantity: true },
-      where: { active: true },
       orderBy: { _sum: { quantity: 'desc' } },
       take: +limit,
     });

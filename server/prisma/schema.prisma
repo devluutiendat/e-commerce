@@ -5,6 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+   url      = env("DATABASE_URL")
 }
 
 model User {
@@ -37,7 +38,6 @@ model Product {
 model Orders {
   id        Int      @id @default(autoincrement())
   quantity  Int
-  active    Boolean
   createdAt DateTime @default(now())
   productId Int
   userId    Int
