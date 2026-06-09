@@ -4,11 +4,12 @@ import { PrismaService } from './config/prisma.service.js';
 import { UsersModule } from './users/users.module.js';
 import { ProductsModule } from './products/products.module.js';
 import { CacheModule } from './cache/cache.module.js';
-import { OrdersModule } from './orders/orders.module';
+import { OrdersModule } from './orders/orders.module.js';
+import { MailModule } from './mail/mail.module.js';
 
 @Global()
 @Module({
-  imports: [AuthModule, UsersModule, ProductsModule, CacheModule, OrdersModule],
+  imports: [AuthModule, UsersModule, ProductsModule, CacheModule, OrdersModule, MailModule],
   controllers: [],
   providers: [PrismaService],
   exports: [PrismaService],

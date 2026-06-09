@@ -9,8 +9,8 @@ import {
   OrderQueryDto,
   UpdateOrderDto,
 } from './dto/order.dto.js';
-import { PrismaService } from 'src/config/prisma.service.js';
-import { ProductsService } from 'src/products/products.service.js';
+import { PrismaService } from '../config/prisma.service.js';
+import { ProductsService } from '../products/products.service.js';
 @Injectable()
 export class OrdersService {
   private readonly logger = new Logger(ProductsService.name);
