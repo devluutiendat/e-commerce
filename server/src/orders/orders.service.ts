@@ -11,12 +11,15 @@ import {
 } from './dto/order.dto.js';
 import { PrismaService } from '../config/prisma.service.js';
 import { ProductsService } from '../products/products.service.js';
+import { InjectQueue } from '@nestjs/bull/dist/decorators/index.js';
+import type { Queue } from 'bull';
 @Injectable()
 export class OrdersService {
   private readonly logger = new Logger(ProductsService.name);
 
   constructor(
-    private readonly prisma: PrismaService, 
+    private readonly prisma: PrismaService,
+    @InjectQueue('email') private mailQueue: Queue,
   ) {}
 
   async create(userId: number, dto: CreateOrderDto) {
@@ -37,6 +40,19 @@ export class OrdersService {
         user: { select: { id: true, email: true, name: true } },
       },
     });
+
+    await this.mailQueue.add(
+      'order-success',
+      {
+        to: order.user.email,
+        name: order.user.name,
+        orderId: order.id,
+        productName: order.product.name,
+        quantity: order.quantity,
+        amount: order.product.price * order.quantity,
+      },
+      { delay: 5000 },
+    );
 
     this.logger.log(`Order created: #${order.id} by user #${userId}`);
     return order;

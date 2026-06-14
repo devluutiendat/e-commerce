@@ -8,10 +8,11 @@ import { OrdersModule } from './orders/orders.module.js';
 import { MailModule } from './mail/mail.module.js';
 import { ConfigModule, ConfigService } from '@nestjs/config/dist/index.js';
 import { BullModule } from '@nestjs/bull/dist/bull.module.js';
+import { QueueModule } from './queue/queue.module.js';
 
 @Global()
 @Module({
-  imports: [AuthModule, UsersModule, ProductsModule, CacheModule, OrdersModule, MailModule,
+  imports: [AuthModule, UsersModule, ProductsModule, CacheModule, OrdersModule, MailModule,QueueModule,
     ConfigModule.forRoot({ isGlobal: true }),
     BullModule.forRootAsync({
       imports: [ConfigModule],

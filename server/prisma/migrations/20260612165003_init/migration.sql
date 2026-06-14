@@ -33,7 +33,6 @@ CREATE TABLE "Product" (
 CREATE TABLE "Orders" (
     "id" SERIAL NOT NULL,
     "quantity" INTEGER NOT NULL,
-    "active" BOOLEAN NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "productId" INTEGER NOT NULL,
     "userId" INTEGER NOT NULL,
