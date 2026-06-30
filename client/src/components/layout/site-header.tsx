@@ -4,8 +4,8 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Heart, Search, ShoppingBag, LogOut, LayoutGrid, User2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Button } from "../ui/button"
+import { Avatar, AvatarFallback } from "../ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +13,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { UserRole } from "@/src/types"
+} from "../ui/dropdown-menu"
+import { UserRole } from "../../types"
 
 export function SiteHeader() {
   const router = useRouter()
@@ -30,7 +30,7 @@ export function SiteHeader() {
   }
   const user = {
     name: "John Doe",
-    email: "john.doe@example.com",
+    email: "john.doe..example.com",
     role: UserRole.USER,
   }
 
