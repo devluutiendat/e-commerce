@@ -24,3 +24,15 @@ export interface RegisterDto {
 export interface RefreshTokenDto {
   refreshToken: string;
 }
+
+export interface Product {
+  id: number;
+  name: string;
+  type: string;
+  description: string;
+  price: number;
+  discountPercent?: number;
+  images: string; 
+  createdAt: string;
+  updatedAt: string;
+}
