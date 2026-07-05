@@ -5,9 +5,13 @@ import Image from "next/image";
 import { Heart } from "lucide-react";
 import type { Product } from "@/types";
 import { PriceTag } from "@/components/ui/price-tag";
+import { useWishlistStore } from "@/store/wishlist-store";
 import { cn } from "@/lib/utils";
 
 export function ProductCard({ product }: { product: Product }) {
+
+  const isInWishlist = useWishlistStore((s) => s.isInWishlist(product.id));
+  const toggleWishlist = useWishlistStore((s) => s.toggle);
 
   return (
     <div className="group animate-rise">
@@ -31,12 +35,15 @@ export function ProductCard({ product }: { product: Product }) {
           <button
             onClick={(e) => {
               e.preventDefault();
+             toggleWishlist(product);
             }}
+            aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
             className="absolute top-2.5 right-2.5 p-2 bg-paper/90 backdrop-blur rounded-full hover:bg-paper transition-colors"
           >
             <Heart
               className={cn(
                 "size-4 transition-colors",
+                isInWishlist ? "fill-red text-red" : "text-ink"
               )}
             />
           </button>
