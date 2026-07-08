@@ -57,3 +57,14 @@ export interface UpdateOrderDto {
   quantity?: number;
   status?: boolean;
 }
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  phone?: string;
+  address?: string;
+  role: UserRole;
+  createdAt: string;
+  updatedAt: string;
+}

@@ -6,20 +6,13 @@ import { Skeleton } from "../ui/skeleton";
 export function ProductGrid({ products }: { products: Product[] }) {
   
  if
-   (!products) {
+   (!products || products.length === 0) {
     return (
       <div className="py-24 text-center">
         <p className="font-display text-lg">No products match yet</p>
         <p className="text-sm text-ink-soft mt-1">Try widening your filters.</p>
       </div>
     );
-  } else if (products.length === 0) { 
-     return (
-      <div className="py-24 text-center">
-        <p className="font-display text-lg font-semibold">No products match yet</p>
-        <p className="text-sm text-muted-foreground mt-1">Try widening your filters.</p>
-      </div>
-    )
   }
 
   return (
