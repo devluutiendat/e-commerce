@@ -4,8 +4,12 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Heart, Search, ShoppingBag, LogOut, LayoutGrid, User2 } from "lucide-react"
-import { Button } from "../ui/button"
-import { Avatar, AvatarFallback } from "../ui/avatar"
+import { useAuthStore } from "@/store/auth-store"
+import { useWishlistStore } from "@/store/wishlist-store"
+import { useCartStore } from "@/store/cart-store"
+import { UserRole } from "@/types"
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,11 +17,13 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
-import { UserRole } from "../../types"
+} from "@/components/ui/dropdown-menu"
 
 export function SiteHeader() {
   const router = useRouter()
+  const user = useAuthStore((s) => s.user)
+  const wishlistCount = useWishlistStore((s) => s.items.length)
+  const cartCount = useCartStore((s) => s.lines.length)
   const [search, setSearch] = useState("")
 
   function handleSearch(e: React.FormEvent) {
@@ -28,11 +34,10 @@ export function SiteHeader() {
         : "/products"
     )
   }
-  const user = {
-    name: "John Doe",
-    email: "john.doe..example.com",
-    role: UserRole.USER,
-  }
+
+  const initials = user?.name
+    ? user.name.split(" ").map((w) => w[0]).slice(0, 2).join("").toUpperCase()
+    : "?"
 
   return (
     <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b">
@@ -46,7 +51,17 @@ export function SiteHeader() {
             <Link href="/products" className="hover:text-foreground transition-colors">
               Shop
             </Link>
-         
+            {user && (
+              <Link href="/orders" className="hover:text-foreground transition-colors">
+                Orders
+              </Link>
+            )}
+            {user?.role === UserRole.ADMIN && (
+              <Link href="/admin" className="hover:text-foreground transition-colors flex items-center gap-1">
+                <LayoutGrid className="size-3.5" />
+                Admin
+              </Link>
+            )}
           </nav>
 
           <form onSubmit={handleSearch} className="flex-1 max-w-md hidden sm:block">
@@ -65,14 +80,22 @@ export function SiteHeader() {
             <Button variant="ghost" size="icon" asChild className="relative">
               <Link href="/wishlist" aria-label="Wishlist">
                 <Heart className="size-5" />
-               
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 size-4 rounded-full bg-marigold text-paper text-[10px] font-bold flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
               </Link>
             </Button>
 
             <Button variant="ghost" size="icon" asChild className="relative">
               <Link href="/cart" aria-label="Cart">
                 <ShoppingBag className="size-5" />
-              
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 size-4 rounded-full bg-marigold text-paper text-[10px] font-bold flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
               </Link>
             </Button>
 
@@ -82,7 +105,7 @@ export function SiteHeader() {
                   <Button variant="ghost" size="icon" className="rounded-full">
                     <Avatar className="size-8">
                       <AvatarFallback className="bg-marigold-tint text-marigold-deep text-xs font-semibold">
-                        {user.name}
+                        {initials}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -106,7 +129,8 @@ export function SiteHeader() {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     variant="destructive"
-                    onClick={() => {}}
+                    onClick={() => {
+                    }}
                   >
                     <LogOut className="size-4" />
                     Sign out
