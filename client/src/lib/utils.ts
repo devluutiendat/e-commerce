@@ -16,3 +16,11 @@ export function formatVND(amount: number): string {
     currency: "VND",
   }).format(amount);
 }
+
+export function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+}

@@ -68,3 +68,16 @@ export interface User {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface Order {
+  id: number;
+  productId: number;
+  product?: Product;
+  userId: number;
+  user?: User;
+  quantity: number;
+  status: boolean;
+  totalPrice?: number;
+  createdAt: string;
+  updatedAt: string;
+}

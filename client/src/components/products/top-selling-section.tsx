@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { ProductGrid,  } from "@/components/products/product-grid";
+import { ProductGrid, ProductGridSkeleton, } from "@/components/products/product-grid";
+import { useTopSellingProducts } from "@/hooks/use-products";
 
 export function TopSellingSection() {
+  const { data: products, isLoading, isError } = useTopSellingProducts();
+
+  if (isError) return null;
 
 
   return (
@@ -26,7 +30,11 @@ export function TopSellingSection() {
           <ArrowRight className="size-3.5" />
         </Link>
       </div>
-      <ProductGrid products={[]} />
+      {isLoading ? (
+        <ProductGridSkeleton count={4} />
+      ) : (
+        <ProductGrid products={products ?? []} />
+      )}    
     </section>
   );
 }

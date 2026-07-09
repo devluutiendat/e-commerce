@@ -17,7 +17,7 @@ export function ProductCard({ product }: { product: Product }) {
     <div className="group animate-rise">
       <Link href={`/products/${product.id}`} className="block">
         <div className="relative aspect-[4/5] bg-paper-raised border border-line overflow-hidden rounded-sm">
-          {product.images && product.images.length > 0 ? (
+          {product.images ? (
             <Image
               src={(product.images)}
               alt={product.name}

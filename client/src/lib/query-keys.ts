@@ -14,4 +14,9 @@ export const queryKeys = {
       ["users", "list", params] as const,
     detail: (id: number) => ["users", "detail", id] as const,
   },
+  orders: {
+    all: ["orders"] as const,
+    list: () => ["orders", "list"] as const,
+    detail: (id: number) => ["orders", "detail", id] as const,
+  },
 };
