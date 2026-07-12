@@ -81,3 +81,21 @@ export interface Order {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface ChangePasswordDto {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export interface UpdateUserDto {
+  name?: string;
+  phone?: string;
+  address?: string;
+}
+
+export interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+  page: number;
+  limit: number;
+}
