@@ -95,7 +95,21 @@ export interface UpdateUserDto {
 
 export interface PaginatedResponse<T> {
   data: T[];
-  total: number;
-  page: number;
-  limit: number;
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
 }
+
+export interface CreateProductDto {
+  name: string;
+  type: string;
+  description: string;
+  price: number;
+  discountPercent?: number;
+  images: string;
+}
+
+export type UpdateProductDto = Partial<CreateProductDto>;

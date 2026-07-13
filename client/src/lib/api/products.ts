@@ -4,13 +4,14 @@ import type {
   CreateProductDto,
   UpdateProductDto,
   ProductQuery,
-  PaginatedResponse,
+  ,
+  ProductsResponse,
 } from "@/types";
 
 export const productsApi = {
   findAll: (params?: ProductQuery) =>
     api
-      .get<PaginatedResponse<Product> | Product[]>("/products", { params })
+      .get<ProductsResponse>("/products", { params })
       .then((r) => r.data),
 
   getTopSelling: () =>

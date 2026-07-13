@@ -3,7 +3,6 @@ import type {
   User,
   UpdateUserDto,
   ChangePasswordDto,
-  PaginatedResponse,
 } from "@/types";
 
 export const usersApi = {
@@ -11,7 +10,7 @@ export const usersApi = {
 
   findAll: (params?: { page?: number; limit?: number }) =>
     api
-      .get<PaginatedResponse<User> | User[]>("/users", { params })
+      .get< User[]>("/users", { params })
       .then((r) => r.data),
 
   findOne: (id: number) => api.get<User>(`/users/${id}`).then((r) => r.data),
