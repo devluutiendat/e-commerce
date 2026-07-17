@@ -5,7 +5,7 @@ export const ordersApi = {
   create: (dto: CreateOrderDto) =>
     api.post<Order>("/orders", dto).then((r) => r.data),
 
-  findAll: () => api.get<Order[]>("/orders").then((r) => r.data),
+  findAll: () => api.get<{ orders: Order[] }>("/orders").then((r) => r.data.orders),
 
   findOne: (id: number) => api.get<Order>(`/orders/${id}`).then((r) => r.data),
 

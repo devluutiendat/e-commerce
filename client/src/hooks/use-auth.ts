@@ -5,6 +5,7 @@ import { tokenStorage } from "@/lib/api/client";
 import { queryKeys } from "@/lib/query-keys";
 import type { LoginDto, RegisterDto } from "@/types";
 import { useAuthStore } from "@/store/auth-store";
+import { usersApi } from "@/lib/api/users";
 
 export function useCurrentUser() {
   const setUser = useAuthStore((s) => s.setUser);
@@ -39,5 +40,21 @@ export function useLogin() {
 export function useRegister() {
   return useMutation({
     mutationFn: (dto: RegisterDto) => authApi.register(dto),
+  });
+}
+
+
+export function useLogout() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const logout = useAuthStore((s) => s.logout);
+
+  return useMutation({
+    mutationFn: () => authApi.logout(),
+    onSettled: () => {
+      logout();
+      queryClient.clear();
+      router.push("/login");
+    },
   });
 }

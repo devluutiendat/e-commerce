@@ -4,7 +4,6 @@ import type {
   CreateProductDto,
   UpdateProductDto,
   ProductQuery,
-  ,
   ProductsResponse,
 } from "@/types";
 

@@ -93,8 +93,8 @@ export interface UpdateUserDto {
   address?: string;
 }
 
-export interface PaginatedResponse<T> {
-  data: T[];
+export interface ProductsResponse {
+  data: Product[];
   meta: {
     total: number;
     page: number;

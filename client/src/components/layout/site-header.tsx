@@ -9,6 +9,7 @@ import { useWishlistStore } from "@/store/wishlist-store"
 import { useCartStore } from "@/store/cart-store"
 import { UserRole } from "@/types"
 import { Button } from "@/components/ui/button"
+import { useLogout } from "@/hooks/use-auth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import {
   DropdownMenu,
@@ -25,6 +26,7 @@ export function SiteHeader() {
   const wishlistCount = useWishlistStore((s) => s.items.length)
   const cartCount = useCartStore((s) => s.lines.length)
   const [search, setSearch] = useState("")
+  const logout = useLogout();
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
@@ -130,6 +132,7 @@ export function SiteHeader() {
                   <DropdownMenuItem
                     variant="destructive"
                     onClick={() => {
+                      logout.mutate();
                     }}
                   >
                     <LogOut className="size-4" />
