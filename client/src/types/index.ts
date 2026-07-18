@@ -81,7 +81,9 @@ export interface Order {
   createdAt: string;
   updatedAt: string;
 }
-
+export interface UpdateUserRoleDto {
+  role: UserRole;
+}
 export interface ChangePasswordDto {
   currentPassword: string;
   newPassword: string;

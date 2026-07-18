@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usersApi } from "@/lib/api/users";
 import { queryKeys } from "@/lib/query-keys";
-import type { ChangePasswordDto, UpdateUserDto } from "@/types";
+import type { ChangePasswordDto, UpdateUserDto, UpdateUserRoleDto } from "@/types";
 
 export function useUsers(params?: { page?: number; limit?: number }) {
   return useQuery({
@@ -39,6 +39,17 @@ export function useDeleteUser() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: number) => usersApi.remove(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.users.all });
+    },
+  });
+}
+
+export function useUpdateUserRole() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, dto }: { id: number; dto: UpdateUserRoleDto }) =>
+      usersApi.updateRole(id, dto),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.users.all });
     },

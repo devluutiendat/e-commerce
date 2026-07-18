@@ -3,6 +3,7 @@ import type {
   User,
   UpdateUserDto,
   ChangePasswordDto,
+  UpdateUserRoleDto,
 } from "@/types";
 
 export const usersApi = {
@@ -10,7 +11,7 @@ export const usersApi = {
 
   findAll: (params?: { page?: number; limit?: number }) =>
     api
-      .get< User[]>("/users", { params })
+      .get<User[]>("/users", { params })
       .then((r) => r.data),
 
   findOne: (id: number) => api.get<User>(`/users/${id}`).then((r) => r.data),
@@ -22,4 +23,7 @@ export const usersApi = {
 
   changePassword: (dto: ChangePasswordDto) =>
     api.patch<void>("/users/me/password", dto).then((r) => r.data),
+ 
+  updateRole: (id: number, dto: UpdateUserRoleDto) =>
+    api.patch<User>(`/users/${id}/role`, dto).then((r) => r.data),
 };
