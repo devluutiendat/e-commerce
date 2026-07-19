@@ -96,7 +96,7 @@ export interface UpdateUserDto {
 }
 
 export interface ProductsResponse {
-  data: Product[];
+  products: Product[];
   meta: {
     total: number;
     page: number;

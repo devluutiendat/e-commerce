@@ -45,7 +45,7 @@ function ProductsPageInner() {
     router.push(`/products?${params.toString()}`);
   }
 
-  const totalPages = data ? Math.max(1, Math.ceil(data.total / LIMIT)) : 1;
+  const totalPages = data ? Math.max(1, Math.ceil(data.meta.total / LIMIT)) : 1;
 
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10">
@@ -56,7 +56,7 @@ function ProductsPageInner() {
           </h1>
           {data && (
             <p className="text-sm text-ink-soft mt-1">
-              {data.total} {data.total === 1 ? "item" : "items"}
+              {data.meta.total} {data.meta.total === 1 ? "item" : "items"}
             </p>
           )}
         </div>
